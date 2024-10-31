@@ -19,7 +19,7 @@ function goToCheckedUrl() {
     params.set("ssj", checkedIds.join(","));
 
     // URL 이동
-    window.location.href = `https://html-is-a-programming-language.github.io/pocket?${params.toString()}`;
+    window.location.href = `https://html-is-a-programming-language.github.io/pocket/?${params.toString()}`;
 }
 
 // URL에서 체크된 항목을 불러오는 함수
