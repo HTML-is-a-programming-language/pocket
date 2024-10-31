@@ -41,6 +41,17 @@ function loadCheckboxState() {
     }
 }
 
+// 입력된 파라미터가 붙은 URL로 이동하는 함수
+function navigateToUrl() {
+    const param = document.getElementById('params').value.trim();
+    if (!param) {
+        alert("Please enter a parameter to navigate.");
+        return;
+    }
+    // 해당 파라미터가 붙은 URL로 이동
+    window.location.href = `https://html-is-a-programming-language.github.io/pocket/?${param}`;
+}
+
 // 페이지 로드 시 이전에 입력한 파라미터를 불러오기
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
