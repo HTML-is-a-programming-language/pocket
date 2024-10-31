@@ -1,33 +1,36 @@
-        // 체크박스 상태를 저장하는 함수
-        function saveCheckboxState() {
-            const param = document.getElementById('params').value;
-            if (!param) return alert("Please enter a parameter.");
+       // 체크박스 상태를 저장하는 함수
+       function saveCheckboxState() {
+        const param = document.getElementById('params').value.trim();
+        if (!param) return alert("Please enter a parameter.");
 
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const state = {};
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const state = {};
 
-            checkboxes.forEach(checkbox => {
-                state[checkbox.id] = checkbox.checked;
-            });
+        checkboxes.forEach(checkbox => {
+            state[checkbox.id] = checkbox.checked;
+        });
 
-            // 로컬 스토리지에 저장
-            localStorage.setItem(`checkboxState_${param}`, JSON.stringify(state));
-            alert(`State saved with parameter: ${param}`);
-        }
+        // 로컬 스토리지에 체크박스 상태 저장
+        localStorage.setItem(`checkboxState_${param}`, JSON.stringify(state));
+        alert(`State saved with parameter: ${param}`);
+    }
 
-        // 페이지 로드 시 체크박스 상태 불러오기
-        window.onload = function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const param = urlParams.get('param');
+    // URL의 파라미터를 기준으로 체크박스 상태를 불러오는 함수
+    function loadCheckboxState() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const param = urlParams.toString();  // 전체 쿼리 파라미터를 문자열로 가져옴
 
-            if (param) {
-                const savedState = localStorage.getItem(`checkboxState_${param}`);
-                if (savedState) {
-                    const state = JSON.parse(savedState);
-                    Object.keys(state).forEach(id => {
-                        const checkbox = document.getElementById(id);
-                        if (checkbox) checkbox.checked = state[id];
-                    });
-                }
+        if (param) {
+            const savedState = localStorage.getItem(`checkboxState_${param}`);
+            if (savedState) {
+                const state = JSON.parse(savedState);
+                Object.keys(state).forEach(id => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) checkbox.checked = state[id];
+                });
             }
-        };
+        }
+    }
+
+    // 페이지 로드 시 체크박스 상태 불러오기
+    window.onload = loadCheckboxState;
