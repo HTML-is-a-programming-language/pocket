@@ -1,30 +1,33 @@
-// 체크박스 상태를 저장하는 함수
-function saveCheckedState() {
-    const paramInput = document.getElementById("params").value;
-    const checkedIds = Array.from(document.querySelectorAll("input[type='checkbox']"))
-        .filter(checkbox => checkbox.checked)
-        .map(checkbox => checkbox.id);
+        // 체크박스 상태를 저장하는 함수
+        function saveCheckboxState() {
+            const param = document.getElementById('params').value;
+            if (!param) return alert("Please enter a parameter.");
 
-    // `ssj` 파라미터 입력 시에만 로컬 스토리지에 상태 저장
-    if (paramInput === "ssj") {
-        localStorage.setItem("ssjCheckedState", JSON.stringify(checkedIds));
-        alert("Checked states saved for 'ssj'.");
-    }
-}
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const state = {};
 
-// 페이지 로드 시 체크박스 상태 불러오는 함수
-function loadCheckedState() {
-    const paramInput = document.getElementById("params").value;
-    if (paramInput === "ssj") {
-        const savedCheckedIds = JSON.parse(localStorage.getItem("ssjCheckedState"));
-        if (savedCheckedIds) {
-            savedCheckedIds.forEach(id => {
-                const checkbox = document.getElementById(id);
-                if (checkbox) checkbox.checked = true;
+            checkboxes.forEach(checkbox => {
+                state[checkbox.id] = checkbox.checked;
             });
-        }
-    }
-}
 
-// 페이지 로드 시 자동으로 체크 상태 로드
-window.onload = loadCheckedState;
+            // 로컬 스토리지에 저장
+            localStorage.setItem(`checkboxState_${param}`, JSON.stringify(state));
+            alert(`State saved with parameter: ${param}`);
+        }
+
+        // 페이지 로드 시 체크박스 상태 불러오기
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const param = urlParams.get('param');
+
+            if (param) {
+                const savedState = localStorage.getItem(`checkboxState_${param}`);
+                if (savedState) {
+                    const state = JSON.parse(savedState);
+                    Object.keys(state).forEach(id => {
+                        const checkbox = document.getElementById(id);
+                        if (checkbox) checkbox.checked = state[id];
+                    });
+                }
+            }
+        };
