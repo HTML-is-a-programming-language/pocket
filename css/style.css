@@ -1,62 +1,148 @@
-.a-table.table--fixed {
-    table-layout: fixed;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.label-style input[type="checkbox"] + .label-icon {
+    display: flex;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+.label-style input[type="checkbox"] + .label-icon:after {
+    position: absolute;
+    top: 5px;
+    left: 8px;
+    width: 4px;
+    height: 8px;
+    border-width: 0 2px 2px 0;
+    border-style: solid;
+    border-color: #000;
+    content: "";
+    transform: rotate(45deg);
+}
+.label-style input[type="checkbox"]:checked + .label-icon {
+    border: none;
+    background: #3863AD;
+}
+.label-style input[type="checkbox"]:checked + .label-icon:after {
+    top: 6px;
+    left: 9px;
+    border-color: #FFF;
 }
 
-.a-table {
-    font-size: 1.3rem;
-    line-height: 2rem;
-    margin: 0 0 14px;
-    border-bottom: 1px solid #ccc;
+header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 1;
     width: 100%;
-    table-layout: auto;
-    box-shadow: rgba(0, 0, 0, 0.05) 0 1px 1px 0;
-    border-collapse: collapse;
+    padding: 0 0 8px;
+    background: #FFF;
+    transform: translateX(-50%);
+}
+header .header-container {
+    display: flex;
+    justify-content: space-between;
+}
+header .header-container .header-title {
+    flex: 0 0 118px;
+}
+header .header-container .header-title .home-link {
+    display: flex;
+    height: 88px;
+    padding: 12px;
+}
+header .header-container .header-title .home-link img {
+    width: 100%;
+}
+header .header-container .input-box {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    padding: 12px;
+}
+header .header-container input {
+    width: 100%;
+    height: 32px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 9px;
+    background: #0000000d;
+    font-size: 1rem;
+    color: #909090;
+}
+header .button-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 0 12px;
+}
+header .button-box button {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    background: #3863AD;
+    font-size: 1rem;
+    color: #FFF;
+}
+header nav .tab-menu-list {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 12px;
+    gap: 8px;
+}
+header nav .tab-menu-list .tab-menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+header nav .tab-menu-list .tab-menu-item .tab-menu-button {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    background: #FFF;
+    font-size: 1rem;
+    color: #000;
+}
+header nav .tab-menu-list .tab-menu-item .tab-menu-button.active {
+    border: none;
+    background: #3863AD;
+    color: #FFF;
 }
 
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
+.header-height {
+    height: 178px;
 }
 
-.a-table th {
-    background-color: #fafafa;
-    font-weight: bold;
-    text-align: center;
+section .card-list-wrap {
+    padding: 0 12px;
 }
-
-.a-table th, .a-table td {
-    border: 1px #ccc solid;
-    padding: 11px 6px 9px;
+section .card-list-wrap .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
-
-.a-table th.center, .a-table td.center {
-    text-align: center;
+section .card-list-wrap .card-list .card-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    width: calc(50% - 4px);
 }
-
-.a-link {
-    color: #47a7ff;
-    font-weight: bold;
+section .card-list-wrap .card-list .card-item .button-box {
+    display: flex;
+    gap: 8px;
 }
-
-.a-table th.center .a-img, .a-table td.center .a-img {
-    margin: 0 auto 3px;
+section .card-list-wrap .card-list .card-item .image-box {
+    width: 100%;
 }
-
-.lazy.lazy-non-square.lazy-loaded {
-    height: auto !important;
-    padding-bottom: 0 !important;
+section .card-list-wrap .card-list .card-item .image-box img {
+    width: 100%;
 }
-
-.a-table th .a-img, .a-table td .a-img {
-    margin: 0;
-}
-
-.a-img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 15px auto 20px;
-}
-
-
-

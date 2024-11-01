@@ -29,6 +29,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
+    font-size: 16px;
 	line-height: 1;
 }
 ol, ul {
@@ -49,4 +50,17 @@ table {
 a {
     color: #000;
     text-decoration: none;
+}
+button {
+    padding: 0;
+    border: none;
+    background: none;
+}
+input[type="checkbox"] {
+	display: none;
+}
+* {
+    font-family: "Roboto", sans-serif;
+    box-sizing: border-box;
+    line-height: 1;
 }
