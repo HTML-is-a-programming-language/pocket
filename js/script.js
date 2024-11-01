@@ -488,21 +488,45 @@ function loadDeckRecipes() {
     });
 }
 
-// 특정 덱 레시피를 불러와 인풋 필드에 표시
-function loadDeckRecipe(deckName) {
-    const allRecipes = JSON.parse(localStorage.getItem('deckRecipes')) || {};
-    const deckRecipe = allRecipes[deckName];
+// 모든 저장된 덱 레시피를 불러와 목록으로 표시
+function loadAllDeckRecipes() {
+    const deckList = document.querySelector('.deck-list');
+    deckList.innerHTML = ""; // 기존 목록 지우기
 
-    if (deckRecipe) {
-        Object.keys(deckRecipe).forEach(id => {
-            const input = document.getElementById(id);
-            if (input) input.value = deckRecipe[id];
-        });
-        alert(`Deck recipe '${deckName}' loaded.`);
-    } else {
-        alert("No saved recipe found for this deck.");
+    // 로컬 스토리지에서 모든 덱 레시피 가져오기
+    const allRecipes = JSON.parse(localStorage.getItem('deckRecipes')) || {};
+
+    // 로컬 스토리지에 저장된 모든 덱을 확인
+    if (Object.keys(allRecipes).length === 0) {
+        alert("저장된 덱 레시피가 없습니다.");
+        return;
     }
+
+    // 저장된 각 덱 레시피를 목록으로 표시
+    Object.entries(allRecipes).forEach(([deckName, deckRecipe]) => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('deck-item');
+
+        // 덱 이름 표시
+        const deckTitle = document.createElement('strong');
+        deckTitle.textContent = `덱 이름: ${deckName}`;
+        listItem.appendChild(deckTitle);
+
+        // 덱 내용 표시
+        const recipeList = document.createElement('ul');
+        Object.entries(deckRecipe).forEach(([id, value]) => {
+            const recipeItem = document.createElement('li');
+            recipeItem.textContent = `${id}: ${value}`;
+            recipeList.appendChild(recipeItem);
+        });
+
+        listItem.appendChild(recipeList);
+        deckList.appendChild(listItem);
+    });
+
+    alert("모든 덱 레시피가 불러와졌습니다.");
 }
+
 
 // 페이지 로드 시 전체 덱 목록 로드
 window.onload = () => {
