@@ -74,22 +74,6 @@ header .header-container input {
     font-size: 1rem;
     color: #909090;
 }
-header .button-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 0 12px;
-}
-header .button-box button {
-    width: 100%;
-    padding: 8px;
-    border-radius: 4px;
-    background: #3863AD;
-    font-size: 1rem;
-    color: #FFF;
-}
 header nav .tab-menu-list {
     display: flex;
     justify-content: space-between;
@@ -116,13 +100,35 @@ header nav .tab-menu-list .tab-menu-item .tab-menu-button.active {
     background: #3863AD;
     color: #FFF;
 }
-
+header .button-box {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 0 12px;
+}
+header .button-box.active {
+    display: flex;
+}
+header .button-box button {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    background: #3863AD;
+    font-size: 1rem;
+    color: #FFF;
+}
 .header-height {
     height: 178px;
 }
 
 section .card-list-wrap {
+    display: none;
     padding: 0 12px;
+}
+section .card-list-wrap.active {
+    display: block;
 }
 section .card-list-wrap .card-list {
     display: flex;
@@ -133,7 +139,6 @@ section .card-list-wrap .card-list .card-item {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    position: relative;
     width: calc(50% - 4px);
 }
 section .card-list-wrap .card-list .card-item .button-box {
@@ -145,4 +150,23 @@ section .card-list-wrap .card-list .card-item .image-box {
 }
 section .card-list-wrap .card-list .card-item .image-box img {
     width: 100%;
+}
+section .deck-list-wrap {
+    display: none;
+    padding: 0 12px;
+}
+section .deck-list-wrap.active {
+    display: block;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    section .card-list-wrap .card-list .card-item {
+        width: calc(25% - 6px);
+    }
+}
+
+@media (min-width: 1025px) {
+    section .card-list-wrap .card-list .card-item {
+        width: calc(12.5% - 7px);
+    }
 }

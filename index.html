@@ -20,28 +20,57 @@
                 <input type="text" id="params" placeholder="ID를 입력해주세요">
             </div>
         </div>
-        <div class="button-box">
-            <button onclick="saveCheckboxState()">저장</button>
-            <button onclick="loadCheckboxState()">불러오기</button>
-        </div>
         <nav>
             <ul class="tab-menu-list">
                 <li class="tab-menu-item">
-                    <button type="button" class="tab-menu-button active">카드 목록</button>
+                    <button type="button" class="tab-menu-button card active" onclick="tabButton('card')">카드 목록</button>
                 </li>
                 <li class="tab-menu-item">
-                    <button type="button" class="tab-menu-button">덱 레시피</button>
+                    <button type="button" class="tab-menu-button deck" onclick="tabButton('deck')">덱 레시피</button>
                 </li>
             </ul>
         </nav>
+        <div class="button-box card active">
+            <button onclick="saveCheckboxState()">카드 저장</button>
+            <button onclick="loadCheckboxState()">카드 불러오기</button>
+        </div>
+        <div class="button-box deck">
+            <button onclick="saveDeckRecipe()">덱 저장</button>
+            <button onclick="loadDeckRecipe()">덱 불러오기</button>
+        </div>
     </header>
     <div class="header-height"></div>
     <section>
-        <article class="card-list-wrap">
+        <article class="card-list-wrap active">
             <ul class="card-list"></ul>
         </article>
-        <article>
-            <h2>덱 레시피</h2>
+        <article class="deck-list-wrap">
+            <div class="input-fields">
+                <!-- 21개의 인풋 필드 -->
+                <input type="text" id="input1" placeholder="Input 1" />
+                <input type="text" id="input2" placeholder="Input 2" />
+                <input type="text" id="input3" placeholder="Input 3" />
+                <input type="text" id="input4" placeholder="Input 4" />
+                <input type="text" id="input5" placeholder="Input 5" />
+                <input type="text" id="input6" placeholder="Input 6" />
+                <input type="text" id="input7" placeholder="Input 7" />
+                <input type="text" id="input8" placeholder="Input 8" />
+                <input type="text" id="input9" placeholder="Input 9" />
+                <input type="text" id="input10" placeholder="Input 10" />
+                <input type="text" id="input11" placeholder="Input 11" />
+                <input type="text" id="input12" placeholder="Input 12" />
+                <input type="text" id="input13" placeholder="Input 13" />
+                <input type="text" id="input14" placeholder="Input 14" />
+                <input type="text" id="input15" placeholder="Input 15" />
+                <input type="text" id="input16" placeholder="Input 16" />
+                <input type="text" id="input17" placeholder="Input 17" />
+                <input type="text" id="input18" placeholder="Input 18" />
+                <input type="text" id="input19" placeholder="Input 19" />
+                <input type="text" id="input20" placeholder="Input 20" />
+                <input type="text" id="input21" placeholder="Input 21" />
+            </div>
+
+            <ul class="deck-list"></ul>
         </article>
     </section>
     <footer>

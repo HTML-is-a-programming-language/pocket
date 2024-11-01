@@ -48,6 +48,34 @@ window.onload = () => {
     if (param) document.getElementById('params').value = param;
 };
 
+function tabButton(tab) {
+    // 모든 탭 버튼에서 active 클래스 제거
+    document.querySelectorAll('.tab-menu-button').forEach(button => {
+        button.classList.remove('active');
+    });
+
+    // 모든 box 요소에서 active 클래스 제거
+    document.querySelectorAll('.button-box').forEach(box => {
+        box.classList.remove('active');
+    });
+
+    // 모든 article 요소에서 active 클래스 제거
+    document.querySelectorAll('article').forEach(article => {
+        article.classList.remove('active');
+    });
+
+    // 선택한 탭 버튼에 active 클래스 추가
+    if (tab === 'card') {
+        document.querySelector('.tab-menu-button.card').classList.add('active');
+        document.querySelector('.button-box.card').classList.add('active');
+        document.querySelector('.card-list-wrap').classList.add('active');
+    } else if (tab === 'deck') {
+        document.querySelector('.tab-menu-button.deck').classList.add('active');
+        document.querySelector('.button-box.deck').classList.add('active');
+        document.querySelector('.deck-list-wrap').classList.add('active');
+    }
+}
+
 // 이미지 정보 배열
 const imageData = [
     { src: "image/bulbasaur.webp", alt: "이상해씨" },
@@ -420,3 +448,50 @@ function createCardItems(imageData) {
 
 // 카드 생성 호출
 createCardItems(imageData);
+
+// 덱 레시피를 로컬 스토리지에 저장하는 함수
+function saveDeckRecipe() {
+    const param = document.getElementById('params').value.trim();
+    if (!param) {
+        alert("Please enter a parameter to save the deck recipe.");
+        return;
+    }
+
+    const inputFields = document.querySelectorAll('.input-fields input[type="text"]');
+    const deckRecipe = {};
+
+    inputFields.forEach(input => {
+        deckRecipe[input.id] = input.value.trim();
+    });
+
+    localStorage.setItem(`deckRecipe_${param}`, JSON.stringify(deckRecipe));
+    alert(`Deck recipe saved with parameter: ${param}`);
+}
+
+// 덱 레시피를 로드하고 `.deck-list`에 `<li>`로 추가하는 함수
+function loadDeckRecipe() {
+    const param = document.getElementById('params').value.trim();
+    if (!param) {
+        alert("Please enter a parameter to load the deck recipe.");
+        return;
+    }
+
+    const savedRecipe = localStorage.getItem(`deckRecipe_${param}`);
+    const deckList = document.querySelector('.deck-list');
+    deckList.innerHTML = "";  // 기존 목록 지우기
+
+    if (savedRecipe) {
+        const recipe = JSON.parse(savedRecipe);
+
+        Object.values(recipe).forEach(value => {
+            if (value) {  // 값이 있을 때만 추가
+                const listItem = document.createElement('li');
+                listItem.textContent = value;
+                deckList.appendChild(listItem);
+            }
+        });
+        alert(`Deck recipe loaded for parameter: ${param}`);
+    } else {
+        alert("No saved deck recipe found for this parameter.");
+    }
+}
