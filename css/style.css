@@ -30,7 +30,7 @@
     border-color: #FFF;
 }
 
-header {
+.header-wrap {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -43,28 +43,28 @@ header {
     background: #FFF;
     transform: translateX(-50%);
 }
-header .header-container {
+.header-wrap .header-container {
     display: flex;
     justify-content: space-between;
 }
-header .header-container .header-title {
+.header-wrap .header-container .header-title {
     flex: 0 0 118px;
 }
-header .header-container .header-title .home-link {
+.header-wrap .header-container .header-title .home-link {
     display: flex;
     height: 88px;
     padding: 12px;
 }
-header .header-container .header-title .home-link img {
+.header-wrap .header-container .header-title .home-link img {
     width: 100%;
 }
-header .header-container .input-box {
+.header-wrap .header-container .login-box {
     display: flex;
     align-items: center;
     flex: 1 1 auto;
     padding: 12px;
 }
-header .header-container input {
+.header-wrap .header-container input {
     width: 100%;
     height: 32px;
     padding: 8px 16px;
@@ -74,19 +74,19 @@ header .header-container input {
     font-size: 1rem;
     color: #909090;
 }
-header nav .tab-menu-list {
+.header-wrap nav .tab-menu-list {
     display: flex;
     justify-content: space-between;
     padding: 0 12px;
     gap: 8px;
 }
-header nav .tab-menu-list .tab-menu-item {
+.header-wrap nav .tab-menu-list .tab-menu-item {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
 }
-header nav .tab-menu-list .tab-menu-item .tab-menu-button {
+.header-wrap nav .tab-menu-list .tab-menu-item .tab-menu-button {
     width: 100%;
     padding: 8px;
     border: 1px solid #000;
@@ -95,12 +95,12 @@ header nav .tab-menu-list .tab-menu-item .tab-menu-button {
     font-size: 1rem;
     color: #000;
 }
-header nav .tab-menu-list .tab-menu-item .tab-menu-button.active {
+.header-wrap nav .tab-menu-list .tab-menu-item .tab-menu-button.active {
     border: none;
     background: #3863AD;
     color: #FFF;
 }
-header .button-box {
+.header-wrap .button-box {
     display: none;
     align-items: center;
     justify-content: center;
@@ -108,10 +108,10 @@ header .button-box {
     width: 100%;
     padding: 0 12px;
 }
-header .button-box.active {
+.header-wrap .button-box.active {
     display: flex;
 }
-header .button-box button {
+.header-wrap .button-box button {
     width: 100%;
     padding: 8px;
     border-radius: 4px;
@@ -158,15 +158,42 @@ section .deck-list-wrap {
 section .deck-list-wrap.active {
     display: block;
 }
+section .deck-list-wrap .deck-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+section .deck-list-wrap .deck-list .deck-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: calc(50% - 4px);
+}
+section .deck-list-wrap .deck-list .deck-item .button-box {
+    display: flex;
+    gap: 8px;
+}
+section .deck-list-wrap .deck-list .deck-item .image-box {
+    width: 100%;
+}
+section .deck-list-wrap .deck-list .deck-item .image-box img {
+    width: 100%;
+}
 
 @media (min-width: 768px) and (max-width: 1024px) {
     section .card-list-wrap .card-list .card-item {
+        width: calc(25% - 6px);
+    }
+    section .deck-list-wrap .deck-list .deck-item {
         width: calc(25% - 6px);
     }
 }
 
 @media (min-width: 1025px) {
     section .card-list-wrap .card-list .card-item {
+        width: calc(12.5% - 7px);
+    }
+    section .deck-list-wrap .deck-list .deck-item {
         width: calc(12.5% - 7px);
     }
 }

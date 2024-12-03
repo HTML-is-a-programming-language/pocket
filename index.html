@@ -6,18 +6,22 @@
     <title>Pocket</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
 </head>
 <body>
-    <header>
+    <div class="header-wrap">
         <div class="header-container">
             <h1 class="header-title">
                 <a href="/" class="home-link">
-                    <img src="//i.namu.wiki/i/T6cvkV3ScPT18ajpWxAILFyByQgQsNYWdG7JsK1ucQAdLv3_n8D5VshfPHak18I2PUamhy7ZZ7F8LNKNdS8mExk-8VeFeuLsYZZwNeQ5LnB8_gTnsfcNkzS8w3BaH-kHfPZ-vLB5jdZaUhnJc1gCwQ.webp"
-                        alt="">
+                    <img src="image/logo.webp" alt="">
                 </a>
             </h1>
-            <div class="input-box">
-                <input type="text" id="params" placeholder="ID를 입력해주세요">
+            <div class="login-box">
+                <input type="email" id="email" placeholder="Email">
+                <input type="password" id="password" placeholder="Password">
+                <button id="login-button">로그인</button>
+                <button id="signup-button">회원가입</button>
             </div>
         </div>
         <nav>
@@ -38,45 +42,21 @@
             <button onclick="saveDeckRecipe()">덱 저장</button>
             <button onclick="loadAllDeckRecipes()">덱 불러오기</button>
         </div>
-    </header>
+    </div>
     <div class="header-height"></div>
     <section>
         <article class="card-list-wrap active">
             <ul class="card-list"></ul>
         </article>
         <article class="deck-list-wrap">
-            <div class="input-fields">
-                <!-- 21개의 인풋 필드 -->
-                <input type="text" id="input1" placeholder="Input 1" />
-                <input type="text" id="input2" placeholder="Input 2" />
-                <input type="text" id="input3" placeholder="Input 3" />
-                <input type="text" id="input4" placeholder="Input 4" />
-                <input type="text" id="input5" placeholder="Input 5" />
-                <input type="text" id="input6" placeholder="Input 6" />
-                <input type="text" id="input7" placeholder="Input 7" />
-                <input type="text" id="input8" placeholder="Input 8" />
-                <input type="text" id="input9" placeholder="Input 9" />
-                <input type="text" id="input10" placeholder="Input 10" />
-                <input type="text" id="input11" placeholder="Input 11" />
-                <input type="text" id="input12" placeholder="Input 12" />
-                <input type="text" id="input13" placeholder="Input 13" />
-                <input type="text" id="input14" placeholder="Input 14" />
-                <input type="text" id="input15" placeholder="Input 15" />
-                <input type="text" id="input16" placeholder="Input 16" />
-                <input type="text" id="input17" placeholder="Input 17" />
-                <input type="text" id="input18" placeholder="Input 18" />
-                <input type="text" id="input19" placeholder="Input 19" />
-                <input type="text" id="input20" placeholder="Input 20" />
-            </div>
-            <div class="deck-name-box">
-                <input type="text" id="deckName" placeholder="덱 이름을 입력하세요">
-            </div>
             <ul class="deck-list"></ul>
         </article>
     </section>
     <footer>
         © 2024 html-is-a-programming-language
     </footer>
+
+    <script src="js/app.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
