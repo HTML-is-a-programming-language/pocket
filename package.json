@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "firebase": "^11.0.2"
+  },
+  "devDependencies": {
+    "lite-server": "^2.6.1",
+    "vite": "^6.0.2"
+  },
+  "scripts": {
+    "start": "lite-server",
+    "dev": "vite"
+  }
+}
