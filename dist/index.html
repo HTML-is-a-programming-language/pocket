@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket</title>
+
+
+  <script type="module" crossorigin src="assets/index-B_8w5qiy.js"></script>
+  <link rel="stylesheet" crossorigin href="assets/index-CtsjDOy3.css">
+</head>
+<body>
+    <div class="header-wrap">
+        <div class="header-container">
+            <a href="/" class="home-link">
+                <img src="assets/logo--CjgCPuk.webp" alt="">
+            </a>
+            <button type="button" class="search-button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
+                    <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="header-height"></div>
+    <div class="list-wrap">
+        <div class="card-list-wrap active">
+            <ul class="card-list"></ul>
+        </div>
+        <div class="deck-list-wrap">
+            <ul class="deck-list"></ul>
+        </div>
+    </div>
+    <footer>
+        © 2024 html-is-a-programming-language
+    </footer>
+    <div class="tab-bar-wrap">
+        <div class="tab-bar-container">
+            <ul class="tab-bar-list">
+                <li class="tab-bar-item">
+                    <a href="/" class="home-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
+                            <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/>
+                        </svg>
+                        <span class="button-text">홈</span>
+                    </a>
+                </li>
+                <li class="tab-bar-item">
+                    <button type="button" class="card-list-button" onclick="tabBarButton('card')">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
+                            <path d="m608-368 46-166-142-98-46 166 142 98ZM160-207l-33-16q-31-13-42-44.5t3-62.5l72-156v279Zm160 87q-33 0-56.5-24T240-201v-239l107 294q3 7 5 13.5t7 12.5h-39Zm206-5q-31 11-62-3t-42-45L245-662q-11-31 3-61.5t45-41.5l301-110q31-11 61.5 3t41.5 45l178 489q11 31-3 61.5T827-235L526-125Zm-28-75 302-110-179-490-301 110 178 490Zm62-300Z"/>
+                        </svg>
+                        <span class="button-text">카드 리스트</span>
+                    </button>
+                </li>
+                <li class="tab-bar-item">
+                    <button type="button" class="deck-list-button" onclick="tabBarButton('deck')">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
+                            <path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z"/>
+                        </svg>
+                        <span class="button-text">덱 리스트</span>
+                    </button>
+                </li>
+                <li class="tab-bar-item">
+                    <button type="button" class="login-button" data-modal="login" onclick="modalWindowOpen(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
+                            <path d="M480-120v-80h280v-560H480v-80h280q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H480Zm-80-160-55-58 102-102H120v-80h327L345-622l55-58 200 200-200 200Z"/>
+                        </svg>
+                        <span class="button-text">로그인</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="tab-bar-height"></div>
+
+    <div class="modal-window-overlay">
+        <div class="modal-window-wrap" data-modal="login">
+            <div class="modal-window-container">
+                <div class="title-box">
+                    <h2 class="box-title">로그인/회원가입</h2>
+                    <button type="button" class="close-button"  onclick="modalWindowClose(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
+                            <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="login-wrap">
+                    <div class="login-input-box">
+                        <input type="email" id="email" placeholder="이메일">
+                        <input type="password" id="password" placeholder="비밀번호">
+                        <p id="message"></p>
+                    </div>
+                    <div class="login-button-box">
+                        <button id="loginButton">로그인</button>
+                        <button id="signupButton">회원가입</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-window-wrap" data-modal="view">
+            <div class="modal-window-container">
+                <div class="card-image-box">
+                    <img src="" alt="">
+                </div>
+                <span class="get-text"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

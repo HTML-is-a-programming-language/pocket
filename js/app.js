@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, set, onValue } from 'firebase/database';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { getDatabase, ref, set, get } from 'firebase/database';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyDF2vgI7mdPxN6q93On_ZghaO_o_CQ8Tp4',
@@ -57,48 +57,77 @@ signupButton.addEventListener('click', async () => {
 });
 
 // 데이터 저장 함수
-function saveToFirebase(cardId, value) {
-    const db = getDatabase();
-    const cardRef = ref(db, `cards/${cardId}`); // cards/{cardId} 경로에 저장
-    set(cardRef, { count: value })
-      .then(() => {
-        console.log(`Data for card ${cardId} saved: ${value}`);
-      })
-      .catch((error) => {
-        console.error("Error saving data:", error);
-      });
-  }
+function saveToFirebase(uid, cardId, value) {
+  console.log(`Saving to Firebase: uid=${uid}, cardId=${cardId}, value=${value}`); // 디버깅용 로그 추가
+  const db = getDatabase();
+  const cardRef = ref(db, `users/${uid}/${cardId}`); // 사용자별 데이터 경로
+  set(cardRef, { count: value })
+    .then(() => {
+      console.log(`Data for card ${cardId} saved for user ${uid}: ${value}`);
+    })
+    .catch((error) => {
+      console.error("Error saving data:", error);
+    });
+}
 
 // 이벤트 리스너 추가
-document.querySelectorAll('input[name="cardCount"]').forEach((input) => {
-    input.addEventListener('input', (event) => {
-      const cardId = event.target.dataset.id; // input의 data-id 값
-      const value = event.target.value; // 입력된 값
-      saveToFirebase(cardId, value);
+function enableInputListeners(uid) {
+  document.querySelectorAll('input[name="cardCount"]').forEach((input) => {
+    const clone = input.cloneNode(true);
+    input.parentNode.replaceChild(clone, input);
+
+    clone.addEventListener("input", (event) => {
+      const cardId = event.target.dataset.id;
+      const value = event.target.value;
+      saveToFirebase(uid, cardId, value);
     });
+
+    clone.disabled = false;
   });
+}
 
-  // Firebase에서 데이터 가져와 각 input에 value 설정
-function loadDataFromFirebase() {
-    const db = getDatabase();
-    const cardRef = ref(db, 'cards'); // cards 경로에서 데이터 가져오기
+function disableInputListeners() {
+  document.querySelectorAll('input[name="cardCount"]').forEach((input) => {
+    input.removeEventListener("input", () => {});
+    input.disabled = true;
+  });
+}
 
-    onValue(cardRef, (snapshot) => {
-      const data = snapshot.val();
+// 데이터 로드 함수
+function loadUserData(uid) {
+  const userRef = ref(db, `users/${uid}`);
+  get(userRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        console.log("User data:", data);
 
-      if (data) {
-        // 저장된 데이터를 input 필드에 설정
-        document.querySelectorAll('input[name="cardCount"]').forEach((input) => {
-          const cardId = input.dataset.id; // input의 data-id 값
-          if (data[cardId]) {
-            input.value = data[cardId].count; // 데이터베이스에서 값 가져와 설정
+        Object.keys(data).forEach((cardId) => {
+          const input = document.querySelector(`input[data-id="${cardId}"]`);
+          if (input) {
+            input.value = data[cardId].count;
           }
         });
+      } else {
+        console.log("No data available");
       }
+    })
+    .catch((error) => {
+      console.error("Error loading data:", error);
     });
-  }
+}
 
-  // 문서 로딩 시 데이터 로드
-  document.addEventListener('DOMContentLoaded', () => {
-    loadDataFromFirebase();
+// 로그인 상태 확인 및 데이터 로드
+document.addEventListener('DOMContentLoaded', () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("Logged in as:", user.uid);
+      const uid = user.uid;
+      enableInputListeners(uid);
+      loadUserData(uid);
+    } else {
+      console.log("User is not logged in");
+      disableInputListeners();
+    }
   });
+});

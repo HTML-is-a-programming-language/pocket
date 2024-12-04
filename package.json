@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "lite-server",
+    "build": "vite build",
     "dev": "vite"
   }
 }
