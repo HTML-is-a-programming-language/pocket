@@ -58,6 +58,11 @@ signupButton.addEventListener('click', async () => {
 
 // 데이터 저장 함수
 function saveToFirebase(uid, cardId, value) {
+  if (value < 0) {
+    console.log(`Value is less than 0. Skipping save: cardId=${cardId}, value=${value}`);
+    return;
+  }
+
   const db = getDatabase();
   const cardRef = ref(db, `users/${uid}/${cardId}`);
   set(cardRef, { count: value })
@@ -70,7 +75,7 @@ function toggleButtonClass(input) {
   const value = parseInt(input.value, 10) || 0;
   const button = input.closest(".card-item").querySelector(".view-button");
 
-  if (value >= 2) {
+  if (value >= 1) {
     button.classList.add("active");
   } else {
     button.classList.remove("active");
@@ -88,7 +93,9 @@ function enableInputListeners(uid) {
     clone.addEventListener("input", (event) => {
       const cardId = event.target.dataset.id;
       const value = parseInt(event.target.value, 10) || 0;
-
+      if (value < 0) {
+        event.target.value = 0; // 음수 입력 방지
+      }
       saveToFirebase(uid, cardId, value); // Firebase에 데이터 저장
       toggleButtonClass(event.target); // 버튼 상태 갱신
       updateDeckListButtons(); // 덱 리스트 버튼 상태 갱신
@@ -161,6 +168,14 @@ async function updateDeckListButtons() {
   });
 }
 
+// 이벤트 리스너 비활성화
+function disableInputListeners() {
+  document.querySelectorAll('input[name="cardCount"]').forEach((input) => {
+    input.removeEventListener('input', () => {});
+    input.disabled = true;
+  });
+}
+
 // 데이터 로드 함수
 async function loadUserData(uid) {
   const userRef = ref(db, `users/${uid}`);
@@ -195,5 +210,64 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("User is not logged in");
       disableInputListeners(); // 비로그인 시 입력 비활성화
     }
+  });
+});
+
+document.querySelector('.search-result-button').addEventListener('click', () => {
+  const nameInput = document.querySelector('#name').value.trim();
+  const rarityChecked = [...document.querySelectorAll('input[name="rarity"]:checked')].map(cb => cb.value);
+  const packChecked = [...document.querySelectorAll('input[name="pack"]:checked')].map(cb => cb.value);
+  const countChecked = [...document.querySelectorAll('input[name="count"]:checked')].map(cb => cb.value);
+
+  const cards = document.querySelectorAll('.card-list-wrap .card-item');
+
+  cards.forEach(card => {
+    const cardName = card.getAttribute('data-name');
+    const cardRarity = card.getAttribute('data-rarity');
+    const cardPack = card.getAttribute('data-pack');
+    const cardCountInput = card.querySelector('input[name="cardCount"]');
+    const cardCount = parseInt(cardCountInput?.value || 0, 10);
+
+    let isVisible = true;
+
+    // 카드 이름 필터링 (AND 조건)
+    if (nameInput && !cardName.includes(nameInput)) {
+      isVisible = false;
+    }
+
+    // 레어도 필터링 (OR 조건)
+    if (rarityChecked.length && !rarityChecked.includes(cardRarity)) {
+      isVisible = false;
+    }
+
+    // 확장팩 필터링 (OR 조건)
+    if (packChecked.length && !packChecked.includes(cardPack)) {
+      isVisible = false;
+    }
+
+    // 카드 장수 필터링 (OR 조건)
+    if (countChecked.length) {
+      const countMatch = countChecked.some(count => {
+        if (count === "0" && cardCount === 0) return true;
+        if (count === "1" && cardCount === 1) return true;
+        if (count === "2" && cardCount >= 2) return true;
+        return false;
+      });
+      if (!countMatch) isVisible = false;
+    }
+
+    // 카드 보이기/숨기기 처리
+    card.style.display = isVisible ? 'block' : 'none';
+    modalWindowClose()
+  });
+});
+
+document.querySelector('.reset-button').addEventListener('click', () => {
+  // 입력 필드 초기화
+  document.querySelector('#name').value = '';
+
+  // 체크박스 초기화
+  document.querySelectorAll('.search-wrap input[type="checkbox"]').forEach(cb => {
+    cb.checked = false;
   });
 });

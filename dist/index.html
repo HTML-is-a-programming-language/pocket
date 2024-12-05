@@ -6,16 +6,16 @@
     <title>Pocket</title>
 
 
-  <script type="module" crossorigin src="assets/index-CIwbDE2D.js"></script>
-  <link rel="stylesheet" crossorigin href="assets/index-XlmbOPyY.css">
+  <script type="module" crossorigin src="assets/index-_RqPblvz.js"></script>
+  <link rel="stylesheet" crossorigin href="assets/index-CGqvT7mf.css">
 </head>
 <body>
     <div class="header-wrap">
         <div class="header-container">
-            <a href="/" class="home-link">
+            <a href="/pocket_build" class="home-link">
                 <img src="assets/logo--CjgCPuk.webp" alt="">
             </a>
-            <button type="button" class="search-button">
+            <button type="button" class="search-button" data-modal="search" onclick="modalWindowOpen(this)">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
                     <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
                 </svg>
@@ -2582,6 +2582,161 @@
     <div class="tab-bar-height"></div>
 
     <div class="modal-window-overlay">
+        <div class="modal-window-wrap" data-modal="search">
+            <div class="modal-window-container">
+                <div class="title-box">
+                    <h2 class="box-title">검색</h2>
+                    <button type="button" class="close-button"  onclick="modalWindowClose(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
+                            <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <h2 class="box-title">카드이름</h2>
+                        <input type="name" id="name" placeholder="카드이름">
+                    </div>
+                    <div class="search-box">
+                        <h2 class="box-title">레어도</h2>
+                        <ul class="checkbox-list">
+                            <li class="checkbox-item">
+                                <label for="rarity1" class="label-style image">
+                                    <input type="checkbox" id="rarity1" name="rarity" value="1">
+                                    <span class="label-icon">
+                                        <img src="data:image/png;base64,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" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity2" class="label-style image">
+                                    <input type="checkbox" id="rarity2" name="rarity" value="2">
+                                    <span class="label-icon">
+                                        <img src="assets/rarity_2-sYv4GCUv.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity3" class="label-style image">
+                                    <input type="checkbox" id="rarity3" name="rarity" value="3">
+                                    <span class="label-icon">
+                                        <img src="assets/rarity_3-CB4kF6t7.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity4" class="label-style image">
+                                    <input type="checkbox" id="rarity4" name="rarity" value="4">
+                                    <span class="label-icon">
+                                        <img src="assets/rarity_4-Tot32Wgc.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity5" class="label-style image">
+                                    <input type="checkbox" id="rarity5" name="rarity" value="5">
+                                    <span class="label-icon">
+                                        <img src="assets/rarity_5-DZB7bz9y.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity6" class="label-style image">
+                                    <input type="checkbox" id="rarity6" name="rarity" value="6">
+                                    <span class="label-icon">
+                                        <img src="assets/rarity_6-4VQ7Pi1v.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity7" class="label-style image">
+                                    <input type="checkbox" id="rarity7" name="rarity" value="7">
+                                    <span class="label-icon">
+                                        <img src="assets/rarity_7-BggWyIv6.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity8" class="label-style image">
+                                    <input type="checkbox" id="rarity8" name="rarity" value="8">
+                                    <span class="label-icon">
+                                        <img src="assets/rarity_8-Sw6fDDtn.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity9" class="label-style image">
+                                    <input type="checkbox" id="rarity9" name="rarity" value="9">
+                                    <span class="label-icon">기타</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="search-box">
+                        <h2 class="box-title">확장팩</h2>
+                        <ul class="checkbox-list">
+                            <li class="checkbox-item">
+                                <label for="pack1" class="label-style text">
+                                    <input type="checkbox" id="pack1" name="pack" value="1">
+                                    <span class="label-icon">최강의 유전자 리자몽</span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="pack1" class="label-style text">
+                                    <input type="checkbox" id="pack1" name="pack" value="2">
+                                    <span class="label-icon">최강의 유전자 뮤츠</span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="pack1" class="label-style text">
+                                    <input type="checkbox" id="pack1" name="pack" value="3">
+                                    <span class="label-icon">최강의 유전자 피카츄</span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="pack1" class="label-style text">
+                                    <input type="checkbox" id="pack1" name="pack" value="0">
+                                    <span class="label-icon">최강의 유전자</span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="pack1" class="label-style text">
+                                    <input type="checkbox" id="pack1" name="pack" value="4">
+                                    <span class="label-icon">기타</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="search-box">
+                        <h2 class="box-title">카드장수</h2>
+                        <ul class="checkbox-list">
+                            <li class="checkbox-item">
+                                <label for="count0" class="label-style text">
+                                    <input type="checkbox" id="count0" name="count" value="0">
+                                    <span class="label-icon">0</span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="count1" class="label-style text">
+                                    <input type="checkbox" id="count1" name="count" value="1">
+                                    <span class="label-icon">1</span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="count2" class="label-style text">
+                                    <input type="checkbox" id="count2" name="count" value="2">
+                                    <span class="label-icon">2+</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="search-button-wrap">
+                    <button type="button" class="search-result-button">검색</button>
+                    <button type="button" class="reset-button">초기화</button>
+                </div>
+            </div>
+        </div>
         <div class="modal-window-wrap" data-modal="login">
             <div class="modal-window-container">
                 <div class="title-box">

@@ -10,10 +10,10 @@
 <body>
     <div class="header-wrap">
         <div class="header-container">
-            <a href="/" class="home-link">
+            <a href="/pocket_build" class="home-link">
                 <img src="image/logo.webp" alt="">
             </a>
-            <button type="button" class="search-button">
+            <button type="button" class="search-button" data-modal="search" onclick="modalWindowOpen(this)">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
                     <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
                 </svg>
@@ -2580,6 +2580,161 @@
     <div class="tab-bar-height"></div>
 
     <div class="modal-window-overlay">
+        <div class="modal-window-wrap" data-modal="search">
+            <div class="modal-window-container">
+                <div class="title-box">
+                    <h2 class="box-title">검색</h2>
+                    <button type="button" class="close-button"  onclick="modalWindowClose(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
+                            <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <h2 class="box-title">카드이름</h2>
+                        <input type="name" id="name" placeholder="카드이름">
+                    </div>
+                    <div class="search-box">
+                        <h2 class="box-title">레어도</h2>
+                        <ul class="checkbox-list">
+                            <li class="checkbox-item">
+                                <label for="rarity1" class="label-style image">
+                                    <input type="checkbox" id="rarity1" name="rarity" value="1">
+                                    <span class="label-icon">
+                                        <img src="image/rarity_1.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity2" class="label-style image">
+                                    <input type="checkbox" id="rarity2" name="rarity" value="2">
+                                    <span class="label-icon">
+                                        <img src="image/rarity_2.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity3" class="label-style image">
+                                    <input type="checkbox" id="rarity3" name="rarity" value="3">
+                                    <span class="label-icon">
+                                        <img src="image/rarity_3.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity4" class="label-style image">
+                                    <input type="checkbox" id="rarity4" name="rarity" value="4">
+                                    <span class="label-icon">
+                                        <img src="image/rarity_4.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity5" class="label-style image">
+                                    <input type="checkbox" id="rarity5" name="rarity" value="5">
+                                    <span class="label-icon">
+                                        <img src="image/rarity_5.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity6" class="label-style image">
+                                    <input type="checkbox" id="rarity6" name="rarity" value="6">
+                                    <span class="label-icon">
+                                        <img src="image/rarity_6.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity7" class="label-style image">
+                                    <input type="checkbox" id="rarity7" name="rarity" value="7">
+                                    <span class="label-icon">
+                                        <img src="image/rarity_7.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity8" class="label-style image">
+                                    <input type="checkbox" id="rarity8" name="rarity" value="8">
+                                    <span class="label-icon">
+                                        <img src="image/rarity_8.png" alt="">
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="rarity9" class="label-style image">
+                                    <input type="checkbox" id="rarity9" name="rarity" value="9">
+                                    <span class="label-icon">기타</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="search-box">
+                        <h2 class="box-title">확장팩</h2>
+                        <ul class="checkbox-list">
+                            <li class="checkbox-item">
+                                <label for="pack1" class="label-style text">
+                                    <input type="checkbox" id="pack1" name="pack" value="1">
+                                    <span class="label-icon">최강의 유전자 리자몽</span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="pack1" class="label-style text">
+                                    <input type="checkbox" id="pack1" name="pack" value="2">
+                                    <span class="label-icon">최강의 유전자 뮤츠</span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="pack1" class="label-style text">
+                                    <input type="checkbox" id="pack1" name="pack" value="3">
+                                    <span class="label-icon">최강의 유전자 피카츄</span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="pack1" class="label-style text">
+                                    <input type="checkbox" id="pack1" name="pack" value="0">
+                                    <span class="label-icon">최강의 유전자</span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="pack1" class="label-style text">
+                                    <input type="checkbox" id="pack1" name="pack" value="4">
+                                    <span class="label-icon">기타</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="search-box">
+                        <h2 class="box-title">카드장수</h2>
+                        <ul class="checkbox-list">
+                            <li class="checkbox-item">
+                                <label for="count0" class="label-style text">
+                                    <input type="checkbox" id="count0" name="count" value="0">
+                                    <span class="label-icon">0</span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="count1" class="label-style text">
+                                    <input type="checkbox" id="count1" name="count" value="1">
+                                    <span class="label-icon">1</span>
+                                </label>
+                            </li>
+                            <li class="checkbox-item">
+                                <label for="count2" class="label-style text">
+                                    <input type="checkbox" id="count2" name="count" value="2">
+                                    <span class="label-icon">2+</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="search-button-wrap">
+                    <button type="button" class="search-result-button">검색</button>
+                    <button type="button" class="reset-button">초기화</button>
+                </div>
+            </div>
+        </div>
         <div class="modal-window-wrap" data-modal="login">
             <div class="modal-window-container">
                 <div class="title-box">
