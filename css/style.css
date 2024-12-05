@@ -79,17 +79,13 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    position: relative;
     width: 30%;
 }
-.list-wrap .card-list-wrap .card-list .card-item .button-box input {
-    width: 24px;
-    height: 24px;
-}
-.list-wrap .card-list-wrap .card-list .card-item .image-box {
-    position: relative;
+.list-wrap .card-list-wrap .card-list .card-item img {
     width: 100%;
 }
-.list-wrap .card-list-wrap .card-list .card-item .image-box .view-button {
+.list-wrap .card-list-wrap .card-list .card-item .view-button {
     position: absolute;
     top: 0;
     left: 0;
@@ -97,10 +93,10 @@
     height: 100%;
     background: #00000080;
 }
-.list-wrap .card-list-wrap .card-list .card-item .image-box .view-button.active {
+.list-wrap .card-list-wrap .card-list .card-item .view-button.active {
     background: none;
 }
-.list-wrap .card-list-wrap .card-list .card-item .image-box input {
+.list-wrap .card-list-wrap .card-list .card-item input {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -108,36 +104,59 @@
     width: 24px;
     height: 24px;
 }
-.list-wrap .card-list-wrap .card-list .card-item .image-box img {
-    width: 100%;
-}
 .list-wrap .deck-list-wrap {
     display: none;
-    padding: 0 12px;
 }
 .list-wrap .deck-list-wrap.active {
-    display: block;
-}
-.list-wrap .deck-list-wrap .deck-list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-direction: column;
+    gap: 24px;
 }
-.list-wrap .deck-list-wrap .deck-list .deck-item {
+.list-wrap .deck-list-wrap .deck-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 12px;
+}
+.list-wrap .deck-list-wrap .deck-list-container .title-wrap {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    width: calc(50% - 4px);
 }
-.list-wrap .deck-list-wrap .deck-list .deck-item .button-box {
+.list-wrap .deck-list-wrap .deck-list-container .title-wrap .deck-name {
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+.list-wrap .deck-list-wrap .deck-list-container .title-wrap .title-detail-box {
     display: flex;
-    gap: 8px;
+    flex-direction: column;
+    gap: 4px;
 }
-.list-wrap .deck-list-wrap .deck-list .deck-item .image-box {
+.list-wrap .deck-list-wrap .deck-list-container .title-wrap .title-detail-box span {
+    font-size: 0.75rem;
+    color: #666;
+}
+.list-wrap .deck-list-wrap .deck-list-container .deck-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+.list-wrap .deck-list-wrap .deck-list-container .deck-list .deck-item {
+    position: relative;
+    width: 20%;
+}
+.list-wrap .deck-list-wrap .deck-list-container .deck-list .deck-item img {
     width: 100%;
 }
-.list-wrap .deck-list-wrap .deck-list .deck-item .image-box img {
+.list-wrap .deck-list-wrap .deck-list-container .deck-list .deck-item .view-button {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background: #00000080;
+}
+.list-wrap .deck-list-wrap .deck-list-container .deck-list .deck-item .view-button.active {
+    background: none;
 }
 
 .tab-bar-wrap {

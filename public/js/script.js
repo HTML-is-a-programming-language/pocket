@@ -12,9 +12,9 @@ function modalWindowOpen(button) {
     });
 
     if (buttonData == 'view') {
-        const cardImageBox = button.closest('.image-box');
-        const cardImageSrc = cardImageBox.querySelector('img').getAttribute('src');
-        const getText = cardImageBox.querySelector('img').getAttribute('data-get');
+        const cardImageItem = button.closest('li');
+        const cardImageSrc = cardImageItem.querySelector('img').getAttribute('src');
+        const getText = cardImageItem.querySelector('img').getAttribute('data-get');
         document.querySelector('.card-image-box img').src = cardImageSrc;
         document.querySelector('.get-text').textContent = getText;
     }
@@ -374,9 +374,6 @@ function createCardItems(imageData) {
         const cardItem = document.createElement('li');
         cardItem.classList.add('card-item');
 
-        const imageBox = document.createElement('div');
-        imageBox.classList.add('image-box');
-
         const img = document.createElement('img');
         img.src = data.src;
         img.alt = data.alt;
@@ -398,11 +395,9 @@ function createCardItems(imageData) {
         input.value = 0;
         input.setAttribute('data-id', index);
 
-        imageBox.appendChild(img);
-        imageBox.appendChild(button);
-        imageBox.appendChild(input);
-
-        cardItem.appendChild(imageBox);
+        cardItem.appendChild(img);
+        cardItem.appendChild(button);
+        cardItem.appendChild(input);
 
         cardList.appendChild(cardItem);
     });
