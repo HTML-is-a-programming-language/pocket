@@ -58,27 +58,22 @@ signupButton.addEventListener('click', async () => {
 
 // 데이터 저장 함수
 function saveToFirebase(uid, cardId, value) {
-  console.log(`Saving to Firebase: uid=${uid}, cardId=${cardId}, value=${value}`); // 디버깅용 로그 추가
   const db = getDatabase();
-  const cardRef = ref(db, `users/${uid}/${cardId}`); // 사용자별 데이터 경로
+  const cardRef = ref(db, `users/${uid}/${cardId}`);
   set(cardRef, { count: value })
-    .then(() => {
-      console.log(`Data for card ${cardId} saved for user ${uid}: ${value}`);
-    })
-    .catch((error) => {
-      console.error("Error saving data:", error);
-    });
+    .then(() => console.log(`Data saved: ${cardId}, ${value}`))
+    .catch((error) => console.error("Error saving data:", error));
 }
 
 // 버튼 활성화/비활성화 함수
 function toggleButtonClass(input) {
-  const value = parseInt(input.value, 10); // 입력된 값을 숫자로 변환
-  const button = input.closest('.card-item').querySelector('.view-button'); // 해당 인풋의 버튼 찾기
+  const value = parseInt(input.value, 10) || 0;
+  const button = input.closest(".card-item").querySelector(".view-button");
 
   if (value >= 2) {
-    button.classList.add('active'); // active 클래스 추가
+    button.classList.add("active");
   } else {
-    button.classList.remove('active'); // active 클래스 제거
+    button.classList.remove("active");
   }
 }
 
@@ -88,57 +83,38 @@ function enableInputListeners(uid) {
     const clone = input.cloneNode(true);
     input.parentNode.replaceChild(clone, input);
 
-    // 초기 상태 확인 후 버튼 활성화
-    toggleButtonClass(clone);
+    toggleButtonClass(clone); // 초기 상태 확인 후 버튼 활성화
 
-    // 인풋 값 변경 시 이벤트 처리
-    clone.addEventListener('input', (event) => {
+    clone.addEventListener("input", (event) => {
       const cardId = event.target.dataset.id;
-      const value = event.target.value;
-      saveToFirebase(uid, cardId, value);
-      toggleButtonClass(event.target); // 버튼 활성화/비활성화 체크
+      const value = parseInt(event.target.value, 10) || 0;
+
+      saveToFirebase(uid, cardId, value); // Firebase에 데이터 저장
+      toggleButtonClass(event.target); // 버튼 상태 갱신
+      updateDeckListButtons(); // 덱 리스트 버튼 상태 갱신
     });
 
     clone.disabled = false;
   });
 }
 
-// 이벤트 리스너 비활성화
-function disableInputListeners() {
-  document.querySelectorAll('input[name="cardCount"]').forEach((input) => {
-    input.removeEventListener('input', () => {});
-    input.disabled = true;
-  });
-}
-
-// 데이터 로드 함수
-async function loadUserData(uid) {
-  const userRef = ref(db, `users/${uid}`);
-  try {
-    const snapshot = await get(userRef);
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      console.log('User data:', data);
-
-      Object.keys(data).forEach((cardId) => {
-        const input = document.querySelector(`input[data-id="${cardId}"]`);
-        if (input) {
-          input.value = data[cardId].count;
-          toggleButtonClass(input); // 로드된 데이터에 따라 버튼 활성화 상태 체크
-        }
-      });
-    } else {
-      console.log('No data available');
-    }
-  } catch (error) {
-    console.error('Error loading data:', error);
-  }
-}
-
 // 덱 리스트 활성화 상태 갱신 함수
 async function updateDeckListButtons() {
   const deckLists = document.querySelectorAll(".deck-list-container");
   const cardItems = document.querySelectorAll(".card-list .card-item");
+
+  // 카드 리스트에서 이름별 input 값 합산
+  const cardInputCounts = {};
+  cardItems.forEach((cardItem) => {
+    const img = cardItem.querySelector("img");
+    const input = cardItem.querySelector("input[name='cardCount']");
+
+    if (img && input) {
+      const cardName = img.alt;
+      const inputValue = parseInt(input.value, 10) || 0;
+      cardInputCounts[cardName] = (cardInputCounts[cardName] || 0) + inputValue;
+    }
+  });
 
   deckLists.forEach((deck) => {
     const cardCounts = {}; // 각 덱 별 카드 개수 초기화
@@ -150,7 +126,7 @@ async function updateDeckListButtons() {
       cardCounts[cardName] = (cardCounts[cardName] || 0) + 1;
     });
 
-    // 현재 덱의 버튼 활성화 상태 갱신
+    // 덱 리스트의 버튼 활성화 상태 갱신
     const deckItemElements = deck.querySelectorAll(".deck-list .deck-item");
     deckItemElements.forEach((deckItem) => {
       const img = deckItem.querySelector("img");
@@ -158,41 +134,66 @@ async function updateDeckListButtons() {
 
       if (img && viewButton) {
         const cardName = img.alt;
-        const deckCount = cardCounts[cardName] || 0;
+        const deckCount = cardCounts[cardName] || 0; // 현재 덱에서 해당 카드의 개수
+        const inputCount = cardInputCounts[cardName] || 0; // 카드 리스트에서 합산된 개수
 
-        // 카드 리스트에서 같은 이름의 카드를 찾고 input 값을 비교
-        const cardItem = Array.from(cardItems).find((item) => {
-          const cardImg = item.querySelector("img");
-          return cardImg && cardImg.alt === cardName;
-        });
+        if (inputCount >= deckCount) {
+          // 카드 리스트의 개수가 덱 개수 이상인 경우 모든 버튼 활성화
+          viewButton.classList.add("active");
+        } else if (inputCount > 0) {
+          // 카드 리스트의 개수가 덱 개수보다 적을 때 앞 카드부터 순차적으로 활성화
+          const activeCards = inputCount; // 활성화 가능한 카드 개수
+          const cardIndexInDeck = Array.from(deckItemElements).filter(
+            (item) => item.querySelector("img").alt === cardName
+          ).indexOf(deckItem);
 
-        if (cardItem) {
-          const input = cardItem.querySelector("input[name='cardCount']");
-          const inputCount = parseInt(input.value, 10) || 0;
-
-          if (inputCount >= deckCount) {
+          if (cardIndexInDeck < activeCards) {
             viewButton.classList.add("active");
           } else {
             viewButton.classList.remove("active");
           }
+        } else {
+          // 카드 리스트에 해당 카드가 없을 경우 버튼 비활성화
+          viewButton.classList.remove("active");
         }
       }
     });
   });
 }
 
-// 로그인 상태 확인 및 데이터 로드
-document.addEventListener('DOMContentLoaded', () => {
+// 데이터 로드 함수
+async function loadUserData(uid) {
+  const userRef = ref(db, `users/${uid}`);
+  try {
+    const snapshot = await get(userRef);
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      Object.keys(data).forEach((cardId) => {
+        const input = document.querySelector(`input[data-id="${cardId}"]`);
+        if (input) {
+          input.value = data[cardId].count;
+          toggleButtonClass(input); // 로드된 데이터에 따라 버튼 활성화 상태 체크
+        }
+      });
+    } else {
+      console.log("No data available");
+    }
+  } catch (error) {
+    console.error("Error loading data:", error);
+  }
+}
+
+// 로그인 상태 확인 및 초기화
+document.addEventListener("DOMContentLoaded", () => {
   onAuthStateChanged(auth, async (user) => {
     if (user) {
-      console.log('Logged in as:', user.uid);
       const uid = user.uid;
-      enableInputListeners(uid);
-      await loadUserData(uid);
-      await updateDeckListButtons();
+      enableInputListeners(uid); // 이벤트 리스너 설정
+      await loadUserData(uid); // 데이터 로드
+      updateDeckListButtons(); // 덱 리스트 상태 갱신
     } else {
-      console.log('User is not logged in');
-      disableInputListeners();
+      console.log("User is not logged in");
+      disableInputListeners(); // 비로그인 시 입력 비활성화
     }
   });
 });
