@@ -364,6 +364,8 @@ const imageData = [
     { src: "image/haunter_promo_A.webp", alt: "프로모 카드 고우스트", get: "이상해꽃 드롭 이벤트", rarity: 9, pack: 4 },
     { src: "image/onix_promo_A.webp", alt: "프로모 카드 롱스톤", get: "이상해꽃 드롭 이벤트", rarity: 9, pack: 4 },
     { src: "image/jigglypuff_promo_A.webp", alt: "프로모 카드 푸린", get: "이상해꽃 드롭 이벤트", rarity: 9, pack: 4 },
+    { src: "image/bulbasaur_promo_A.webp", alt: "프로모 카드 이상해씨", get: "겟 챌린지 이벤트 전반 개최", rarity: 9, pack: 4 },
+    { src: "image/magnemite_promo_A.webp", alt: "프로모 카드 코일", get: "겟 챌린지 이벤트 전반 개최", rarity: 9, pack: 4 },
 ];
 
 // 카드 리스트 생성 함수
