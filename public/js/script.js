@@ -675,8 +675,8 @@ const imageData = [
     { src: "image/P-A_Cresselia_ex.webp", alt: "P-A 크레세리아ex", get: "크레세리아ex 드롭 이벤트", rarity: 9, pack: 4 },
     { src: "image/P-A_Misdreavus.webp", alt: "P-A 무우마", get: "크레세리아ex 드롭 이벤트", rarity: 9, pack: 4 },
     { src: "image/P-A_Skarmory.webp", alt: "P-A 무장조", get: "크레세리아ex 드롭 이벤트", rarity: 9, pack: 4 },
-    /*{ src: "image/P-A_Chimchar.webp", alt: "P-A 불꽃숭이", get: "2월 프리미엄패스 보상", rarity: 9, pack: 4 },
-    { src: "image/P-A_Togepi.webp", alt: "P-A 토게피", get: "2월 프리미엄패스 보상", rarity: 9, pack: 4 },*/
+    { src: "image/P-A_Chimchar.webp", alt: "P-A 불꽃숭이", get: "2월 프리미엄패스 보상", rarity: 9, pack: 4 },
+    { src: "image/P-A_Togepi.webp", alt: "P-A 토게피", get: "2월 프리미엄패스 보상", rarity: 9, pack: 4 },
 ];
 
 // 카드 리스트 생성 함수
