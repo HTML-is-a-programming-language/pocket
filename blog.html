@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="list-wrap">
+        <div class="deck-list-wrap active">
+            <div class="deck-list-container" data-deck="0">
+                <ul class="deck-list">
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_poliwag.webp" alt="A1 발챙이" data-get="최강의 유전자 리자몽">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_poliwhirl.webp" alt="A1 슈륙챙이" data-get="최강의 유전자 리자몽">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_tentacool.webp" alt="A1 왕눈해" data-get="최강의 유전자 뮤츠">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_krabby.webp" alt="A1 크랩" data-get="최강의 유전자 뮤츠">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_horsea.webp" alt="A1 쏘드라" data-get="최강의 유전자 피카츄">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_seadra.webp" alt="A1 시드라" data-get="최강의 유전자 피카츄">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_goldeen.webp" alt="A1 콘치" data-get="최강의 유전자 피카츄">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_goldeen.webp" alt="A1 콘치" data-get="최강의 유전자 피카츄">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_staryu.webp" alt="A1 별가사리" data-get="최강의 유전자 리자몽">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_staryu.webp" alt="A1 별가사리" data-get="최강의 유전자 리자몽">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_lapras.webp" alt="A1 라프라스" data-get="최강의 유전자 리자몽">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_lapras.webp" alt="A1 라프라스" data-get="최강의 유전자 리자몽">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_ducklett.webp" alt="A1 꼬지보리" data-get="최강의 유전자 리자몽">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_swanna.webp" alt="A1 스완나" data-get="최강의 유전자 리자몽">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_pidgey.webp" alt="A1 구구" data-get="최강의 유전자 뮤츠">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_pidgeotto.webp" alt="A1 피죤" data-get="최강의 유전자 뮤츠">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_pidgeotto.webp" alt="A1 피죤" data-get="최강의 유전자 뮤츠">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/A1_lickitung.webp" alt="A1 내루미" data-get="최강의 유전자 뮤츠">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/P_A_poke_ball.webp" alt="P-A 몬스터볼" data-get="상점">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                    <li class="deck-item">
+                        <div class="image-box">
+                            <img src="image/P_A_poke_ball.webp" alt="P-A 몬스터볼" data-get="상점">
+                            <button type="button" class="view-button active" data-modal="view" onclick="modalWindowOpen(this)"></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <button onclick="saveDeckAsPNG(0, 'Beginner_Lapras_Deck')">PNG 저장</button>
+    <script>
+        function saveDeckAsPNG(data, name) {
+            const element = document.querySelector('.deck-list-container[data-deck="0"]');
+
+            html2canvas(element).then(canvas => {
+                const dataUrl = canvas.toDataURL("image/png");
+
+                const link = document.createElement("a");
+                link.href = dataUrl;
+                link.download = `${name}.png`;
+                link.click();
+            }).catch(err => {
+                console.error("캡처 실패:", err);
+            });
+        }
+    </script>
+</body>
+</html>
