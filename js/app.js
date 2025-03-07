@@ -250,7 +250,8 @@ document.querySelector('.search-result-button').addEventListener('click', () => 
       const countMatch = countChecked.some(count => {
         if (count === "0" && cardCount === 0) return true;
         if (count === "1" && cardCount === 1) return true;
-        if (count === "2" && cardCount >= 2) return true;
+        if (count === "2" && cardCount === 2) return true;
+        if (count === "3" && cardCount >= 3) return true;
         return false;
       });
       if (!countMatch) isVisible = false;

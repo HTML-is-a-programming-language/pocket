@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카드 점수 테이블</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>카드 점수 테이블</h2>
+    <input type="file" id="fileInput" accept=".csv">
+    <table id="cardTable">
+        <thead>
+            <tr>
+                <th>카드 이름</th>
+                <th>총 개수</th>
+                <th>총 점수</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                processCSV(text);
+            };
+            reader.readAsText(file);
+        });
+
+        function processCSV(csvText) {
+            const rows = csvText.split('\n').map(row => row.trim()).filter(row => row);
+            const data = {};
+
+            for (let i = 1; i < rows.length; i++) { // 첫 번째 행은 헤더
+                const cols = rows[i].split(',');
+                if (cols.length < 3) continue;
+
+                const name = cols[0].trim();
+                const count = parseInt(cols[1].trim(), 10) || 0;
+                const score = parseInt(cols[2].trim(), 10) || 0;
+
+                if (!data[name]) {
+                    data[name] = { count: 0, score: 0 };
+                }
+
+                data[name].count += count;
+                data[name].score += score;
+            }
+
+            const sortedData = Object.entries(data).map(([name, values]) => ({
+                name,
+                count: values.count,
+                score: values.score
+            })).sort((a, b) => b.score - a.score || b.count - a.count);
+
+            const tbody = document.querySelector('#cardTable tbody');
+            tbody.innerHTML = '';
+
+            sortedData.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${row.name}</td><td>${row.count}</td><td>${row.score}</td>`;
+                tbody.appendChild(tr);
+            });
+        }
+    </script>
+</body>
+</html>

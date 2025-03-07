@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>덱 및 카드 점수 계산</title>
+  <style>
+    table, th, td {
+      border: 1px solid #444;
+      border-collapse: collapse;
+      padding: 4px;
+      text-align: center;
+    }
+    h2 { margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <h1>64강 덱 및 카드 점수 계산</h1>
+
+  <input type="file" id="csvFile" accept=".csv" />
+  <button id="parseBtn">CSV 파싱</button>
+  <button id="calculateBtn">점수 계산</button>
+
+  <h2>덱 점수</h2>
+  <table id="deckTable">
+    <thead>
+      <tr>
+        <th>덱 이름</th>
+        <th>최고 등수</th>
+        <th>덱 개수</th>
+        <th>총 점수</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>카드 점수</h2>
+  <table id="cardTable">
+    <thead>
+      <tr>
+        <th>카드 이름</th>
+        <th>총 개수</th>
+        <th>총 점수</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  <script>
+    let parsedData = [];
+
+    document.getElementById("parseBtn").addEventListener("click", function() {
+      const file = document.getElementById("csvFile").files[0];
+      if (!file) {
+        alert("CSV 파일을 선택하세요!");
+        return;
+      }
+      Papa.parse(file, {
+        complete: function(results) {
+          parsedData = results.data;
+          alert("CSV 파싱 완료!");
+        },
+        encoding: "UTF-8"
+      });
+    });
+
+    function getPoints(rank) {
+      return rank === 1 ? 64 : rank === 2 ? 32 : rank <= 4 ? 16 : rank <= 8 ? 8 : rank <= 16 ? 4 : rank <= 32 ? 2 : rank <= 64 ? 1 : 0;
+    }
+
+    document.getElementById("calculateBtn").addEventListener("click", function() {
+      if (parsedData.length < 2) {
+        alert("CSV 데이터가 부족합니다.");
+        return;
+      }
+
+      const rankRow = parsedData[0];
+      const deckRow = parsedData[1];
+      const deckScores = {};
+      const cardScores = {};
+
+      for (let i = 0; i < rankRow.length; i++) {
+        const deckName = deckRow[i]?.trim();
+        const rank = parseInt(rankRow[i], 10);
+        if (!deckName || isNaN(rank)) continue;
+        const basePoints = getPoints(rank);
+
+        if (!deckScores[deckName]) {
+          deckScores[deckName] = { bestRank: rank, count: 1, points: basePoints };
+        } else {
+          deckScores[deckName].points += basePoints;
+          deckScores[deckName].count++;
+          deckScores[deckName].bestRank = Math.min(deckScores[deckName].bestRank, rank);
+        }
+
+        for (let r = 2; r < parsedData.length; r++) {
+          const cardCell = parsedData[r][i]?.trim();
+          if (!cardCell) continue;
+          const tokens = cardCell.split(" ");
+          const cardCount = parseInt(tokens[0], 10);
+          const cardName = tokens.slice(1).join(" ");
+          if (!cardName || isNaN(cardCount)) continue;
+          const cardPoints = cardCount * getPoints(rank);
+
+          if (!cardScores[cardName]) {
+            cardScores[cardName] = { totalCount: cardCount, totalPoints: cardPoints };
+          } else {
+            cardScores[cardName].totalCount += cardCount;
+            cardScores[cardName].totalPoints += cardPoints;
+          }
+        }
+      }
+
+      const deckTbody = document.querySelector("#deckTable tbody");
+      deckTbody.innerHTML = "";
+      Object.entries(deckScores).sort((a, b) => b[1].points - a[1].points).forEach(([name, data]) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${name}</td><td>${data.bestRank}</td><td>${data.count}</td><td>${data.points}</td>`;
+        deckTbody.appendChild(tr);
+      });
+
+      const cardTbody = document.querySelector("#cardTable tbody");
+      cardTbody.innerHTML = "";
+      Object.entries(cardScores).sort((a, b) => b[1].totalPoints - a[1].totalPoints).forEach(([name, data]) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${name}</td><td>${data.totalCount}</td><td>${data.totalPoints}</td>`;
+        cardTbody.appendChild(tr);
+      });
+    });
+  </script>
+</body>
+</html>
