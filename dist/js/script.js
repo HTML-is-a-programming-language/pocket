@@ -779,8 +779,8 @@ const imageData = [
     { src: "image/P-A_Nosepass.webp", alt: "P-A 코코파스", get: "딥상어동 드롭 이벤트", rarity: 9, pack: 4 },
     { src: "image/P-A_Gible.webp", alt: "P-A 딥상어동", get: "딥상어동 드롭 이벤트", rarity: 9, pack: 4 },
     { src: "image/P-A_Staraptor.webp", alt: "P-A 찌르호크", get: "딥상어동 드롭 이벤트", rarity: 9, pack: 4 },
-    //{ src: "image/A2a_Vespiquen.webp", alt: "P-A 마나피", get: "겟 챌린지 이벤트 전반 개최", rarity: 9, pack: 4 },
-    //{ src: "image/A2a_Vespiquen.webp", alt: "P-A 잠만보", get: "겟 챌린지 이벤트 전반 개최", rarity: 9, pack: 4 },
+    { src: "image/P-A_Manaphy.webp", alt: "P-A 마나피", get: "겟 챌린지 이벤트 전반 개최", rarity: 9, pack: 4 },
+    { src: "image/P-A_Snorlax.webp", alt: "P-A 잠만보", get: "겟 챌린지 이벤트 전반 개최", rarity: 9, pack: 4 },
 ];
 
 // 카드 리스트 생성 함수
